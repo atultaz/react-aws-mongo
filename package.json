@@ -1,0 +1,21 @@
+{
+  "name": "react-aws-node",
+  "version": "1.0.0",
+  "description": "A project in react, aws , mongoDb to mimic hackerIo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "author": "Atul Tiwari",
+  "license": "MIT",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "next": "^11.1.2",
+    "nprogress": "^0.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
