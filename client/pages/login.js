@@ -5,6 +5,7 @@ import Router from 'next/router';
 import axios from 'axios';
 import { showSuccessMessage, showErrorMessage } from '../helpers/alerts';
 import { API } from '../config';
+import { authenticate } from '../helpers/auth';
 
 const Login = () => {
   const [state, setState] = useState({
@@ -35,7 +36,8 @@ const Login = () => {
         email,
         password,
       });
-      console.log(response);
+      // console.log(response); // data > token / user
+      authenticate(response, () => Router.push('/'));
     } catch (error) {
       console.log(error);
       setState({
