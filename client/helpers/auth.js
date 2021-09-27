@@ -12,7 +12,7 @@ export const setCookie = (key, value) => {
 // remove from cookie
 export const removeCookie = (key) => {
   if (process.browser) {
-    cookie.set(key);
+    cookie.remove(key);
   }
 };
 
@@ -57,4 +57,10 @@ export const isAuth = () => {
       }
     }
   }
+};
+
+export const logout = () => {
+  removeCookie('token');
+  removeLocalStorage('user');
+  Router.push('/login');
 };
