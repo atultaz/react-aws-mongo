@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { isAuth, logout } from '../helpers/auth';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 Router.onRouteChangeStart = (url) => NProgress.start();
 Router.onRouteChangeComplete = (url) => NProgress.done();
@@ -14,13 +14,13 @@ Router.onRouteChangeError = (url) => NProgress.done();
 const Layout = ({ children }) => {
   const head = () => (
     <Fragment>
-      {/* <link
-        href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css'
+      <link
         rel='stylesheet'
-        integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC'
+        href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+        integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
         crossOrigin='anonymous'
-      /> */}
-      {/* <link rel='stylesheet' href='/static/css/styles.css' /> */}
+      />
+      <link rel='stylesheet' href='/static/css/styles.css' />
     </Fragment>
   );
   const nav = () => (
@@ -45,7 +45,7 @@ const Layout = ({ children }) => {
         </Fragment>
       )}
       {isAuth() && isAuth().role === 'admin' && (
-        <li className='nav-item ms-auto'>
+        <li className='nav-item ml-auto'>
           <Link href='/admin'>
             <a className='nav-link text-dark'>{isAuth().name}</a>
           </Link>
@@ -53,7 +53,7 @@ const Layout = ({ children }) => {
       )}
 
       {isAuth() && isAuth().role === 'subscriber' && (
-        <li className='ms-auto nav-item'>
+        <li className='nav-item ml-auto'>
           <Link href='/user'>
             <a className='nav-link text-dark'>{isAuth().name}</a>
           </Link>
