@@ -176,7 +176,7 @@ exports.forgotPassword = (req, res) => {
     const token = jwt.sign(
       { name: user.name },
       process.env.JWT_RESET_PASSWORD,
-      { expiresIn: '10m' }
+      { expiresIn: '7d' }
     );
     // send email
     const params = forgotPasswordEmailParams(email, token);
