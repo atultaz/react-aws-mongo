@@ -12,7 +12,7 @@ const s3 = new AWS.S3({
   region: process.env.AWS_REGION,
 });
 
-// exports.create = (req, res) => {
+// const { v4: uuidv4 } = require('uuid');exports.create = (req, res) => {
 //     let form = new formidable.IncomingForm();
 //     form.parse(req, (err, fields, files) => {
 //         if (err) {
@@ -64,6 +64,7 @@ const s3 = new AWS.S3({
 
 exports.create = (req, res) => {
   const { name, image, content } = req.body;
+  console.log({ name, image, content });
   // image data
   const base64Data = new Buffer.from(
     image.replace(/^data:image\/\w+;base64,/, ''),
@@ -75,7 +76,7 @@ exports.create = (req, res) => {
   let category = new Category({ name, content, slug });
 
   const params = {
-    Bucket: 'hackr-kaloraat',
+    Bucket: 'saarthi-aws-react-node',
     Key: `category/${uuidv4()}.${type}`,
     Body: base64Data,
     ACL: 'public-read',
