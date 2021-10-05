@@ -1,23 +1,13 @@
 // imports
+import { Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import axios from 'axios';
+import { getCookie, isAuth } from '../../../helpers/auth';
 import { API } from '../../../config';
 import { showSuccessMessage, showErrorMessage } from '../../../helpers/alerts';
-/*
-handle change title
-handle change url
-handle change type
-handle change medium
-handle submit > post request to server
-show types > radio buttons
-show medium > radio buttons
-handle toggle > selecting categories
-return > show create forms, categories checkbox, radio buttons, success/error messages etc
-get token of the logged in user - required to create link
- */
 
-const Create = () => {
+const Create = ({ token }) => {
   // state
   const [state, setState] = useState({
     title: '',
@@ -60,8 +50,106 @@ const Create = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('POST to server');
+    e.preventDefault();
+    // console.table({ title, url, categories, type, medium });
+    try {
+      const response = await axios.post(
+        `${API}/link`,
+        { title, url, categories, type, medium },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setState({
+        ...state,
+        title: '',
+        url: '',
+        success: 'Link is created',
+        error: '',
+        loadedCategories: [],
+        categories: [],
+        type: '',
+        medium: '',
+      });
+    } catch (error) {
+      console.log('LINK SUBMIT ERROR', error);
+      setState({ ...state, error: error.response.data.error });
+    }
   };
+
+  const handleTypeClick = (e) => {
+    setState({ ...state, type: e.target.value, success: '', error: '' });
+  };
+
+  const handleMediumClick = (e) => {
+    setState({ ...state, medium: e.target.value, success: '', error: '' });
+  };
+
+  const showMedium = () => (
+    <Fragment>
+      <div className='form-check ml-3'>
+        <label className='form-check-label'>
+          <input
+            type='radio'
+            onClick={handleMediumClick}
+            checked={medium === 'video'}
+            value='video'
+            className='from-check-input'
+            name='medium'
+          />{' '}
+          Video
+        </label>
+      </div>
+
+      <div className='form-check ml-3'>
+        <label className='form-check-label'>
+          <input
+            type='radio'
+            onClick={handleMediumClick}
+            checked={medium === 'book'}
+            value='book'
+            className='from-check-input'
+            name='medium'
+          />{' '}
+          Book
+        </label>
+      </div>
+    </Fragment>
+  );
+
+  const showTypes = () => (
+    <Fragment>
+      <div className='form-check ml-3'>
+        <label className='form-check-label'>
+          <input
+            type='radio'
+            onClick={handleTypeClick}
+            checked={type === 'free'}
+            value='free'
+            className='from-check-input'
+            name='type'
+          />{' '}
+          Free
+        </label>
+      </div>
+
+      <div className='form-check ml-3'>
+        <label className='form-check-label'>
+          <input
+            type='radio'
+            onClick={handleTypeClick}
+            checked={type === 'paid'}
+            value='paid'
+            className='from-check-input'
+            name='type'
+          />{' '}
+          Paid
+        </label>
+      </div>
+    </Fragment>
+  );
 
   const handleToggle = (c) => () => {
     // return the first index or -1
@@ -116,8 +204,12 @@ const Create = () => {
         />
       </div>
       <div>
-        <button className='btn btn-outline-warning' type='submit'>
-          Submit
+        <button
+          disabled={!token}
+          className='btn btn-outline-warning'
+          type='submit'
+        >
+          {isAuth() || token ? 'Post' : 'Login to post'}
         </button>
       </div>
     </form>
@@ -139,12 +231,28 @@ const Create = () => {
               {showCategories()}
             </ul>
           </div>
+          <div className='form-group'>
+            <label className='text-muted ml-4'>Type</label>
+            {showTypes()}
+          </div>
+          <div className='form-group'>
+            <label className='text-muted ml-4'>Medium</label>
+            {showMedium()}
+          </div>
         </div>
-        <div className='col-md-8'>{submitLinkForm()}</div>
+        <div className='col-md-8'>
+          {success && showSuccessMessage(success)}
+          {error && showErrorMessage(error)}
+          {submitLinkForm()}
+        </div>
       </div>
-      {JSON.stringify(categories)}
     </Layout>
   );
+};
+
+Create.getInitialProps = ({ req }) => {
+  const token = getCookie('token', req);
+  return { token };
 };
 
 export default Create;
