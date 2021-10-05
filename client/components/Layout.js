@@ -30,6 +30,16 @@ const Layout = ({ children }) => {
           <a className='nav-link text-dark'>Home</a>
         </Link>
       </li>
+      <li className='nav-item'>
+        <Link href='/user/link/create'>
+          <a
+            className='nav-link text-dark btn btn-success'
+            style={{ borderRadius: '0px' }}
+          >
+            Submit a link
+          </a>
+        </Link>
+      </li>
       {!isAuth() && (
         <Fragment>
           <li className='nav-item'>
