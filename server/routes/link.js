@@ -10,7 +10,14 @@ const { runValidation } = require('../validators');
 
 // controllers
 const { requireSignin, authMiddleware } = require('../controllers/auth');
-const { create, list, read, update, remove } = require('../controllers/link');
+const {
+  create,
+  list,
+  read,
+  update,
+  remove,
+  clickCount,
+} = require('../controllers/link');
 
 // routes
 router.post(
@@ -22,6 +29,8 @@ router.post(
   create
 );
 router.get('/links', list);
+router.put('/click-count', clickCount);
+
 router.get('/link/:slug', read);
 router.put(
   '/link/:slug',
