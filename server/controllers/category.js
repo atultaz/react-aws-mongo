@@ -115,7 +115,7 @@ exports.update = (req, res) => {
         // remove the existing image from s3 before uploading new/updated one
         const deleteParams = {
           Bucket: 'saarthi-aws-react-node',
-          Key: `category/${updated.image.key}`,
+          Key: `${updated.image.key}`,
         };
 
         s3.deleteObject(deleteParams, function (err, data) {
@@ -170,7 +170,7 @@ exports.remove = (req, res) => {
     // remove the existing image from s3 before uploading new/updated one
     const deleteParams = {
       Bucket: 'saarthi-aws-react-node',
-      Key: `category/${data.image.key}`,
+      Key: `${data.image.key}`,
     };
 
     s3.deleteObject(deleteParams, function (err, data) {
