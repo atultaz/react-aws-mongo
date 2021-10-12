@@ -9,7 +9,11 @@ const {
 const { runValidation } = require('../validators');
 
 // controllers
-const { requireSignin, authMiddleware } = require('../controllers/auth');
+const {
+  requireSignin,
+  authMiddleware,
+  adminMiddleware,
+} = require('../controllers/auth');
 const {
   create,
   list,
@@ -28,7 +32,7 @@ router.post(
   authMiddleware,
   create
 );
-router.get('/links', list);
+router.post('/links', requireSignin, adminMiddleware, list);
 router.put('/click-count', clickCount);
 
 router.get('/link/:id', read);

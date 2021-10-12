@@ -1,4 +1,5 @@
 // imports
+import { Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import Layout from '../../../components/Layout';
 import axios from 'axios';
@@ -78,7 +79,7 @@ const Update = ({ oldLink, token }) => {
   };
 
   const showMedium = () => (
-    <React.Fragment>
+    <Fragment>
       <div className='form-check ml-3'>
         <label className='form-check-label'>
           <input
@@ -106,11 +107,11 @@ const Update = ({ oldLink, token }) => {
           Book
         </label>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 
   const showTypes = () => (
-    <React.Fragment>
+    <Fragment>
       <div className='form-check ml-3'>
         <label className='form-check-label'>
           <input
@@ -138,7 +139,7 @@ const Update = ({ oldLink, token }) => {
           Paid
         </label>
       </div>
-    </React.Fragment>
+    </Fragment>
   );
 
   const handleToggle = (c) => () => {
