@@ -148,7 +148,7 @@ const Update = ({ oldCategory, token }) => {
 };
 
 Update.getInitialProps = async ({ req, query, token }) => {
-  const response = await axios.post(`${API}/category/${query.slug}`);
+  const response = await axios.get(`${API}/category/${query.slug}`);
   return { oldCategory: response.data.category, token };
 };
 
