@@ -69,7 +69,6 @@ exports.update = (req, res) => {
     }
   );
 };
-
 exports.remove = (req, res) => {
   const { id } = req.params;
   Link.findOneAndRemove({ _id: id }).exec((err, data) => {

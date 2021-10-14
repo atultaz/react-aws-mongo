@@ -13,6 +13,7 @@ const {
   requireSignin,
   authMiddleware,
   adminMiddleware,
+  canUpdateDeleteLink,
 } = require('../controllers/auth');
 const {
   create,
@@ -42,8 +43,24 @@ router.put(
   runValidation,
   requireSignin,
   authMiddleware,
+  canUpdateDeleteLink,
   update
 );
-router.delete('/link/:id', requireSignin, authMiddleware, remove);
+router.put(
+  '/link/admin/:id',
+  linkUpdateValidator,
+  runValidation,
+  requireSignin,
+  adminMiddleware,
+  update
+);
+router.delete(
+  '/link/:id',
+  requireSignin,
+  authMiddleware,
+  canUpdateDeleteLink,
+  remove
+);
+router.delete('/link/admin/:id', requireSignin, adminMiddleware, remove);
 
 module.exports = router;
