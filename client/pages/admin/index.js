@@ -20,13 +20,13 @@ const Admin = ({ user }) => (
             </Link>
           </li>
           <li className='nav-item'>
-            <Link href='/admin/category/read'>
-              <a className='nav-link'>All categories</a>
+            <Link href='/admin/link/read'>
+              <a className='nav-link'>All Links</a>
             </Link>
           </li>
           <li className='nav-item'>
-            <Link href='/admin/link/read'>
-              <a className='nav-link'>All Links</a>
+            <Link href='/user/profile/update'>
+              <a className='nav-link'>Profile update</a>
             </Link>
           </li>
         </ul>
